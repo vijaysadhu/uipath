@@ -1,0 +1,27 @@
+{
+  "name": "BRAVO_PROC",
+  "description": "Simple Process Project",
+  "main": "Main.xaml",
+  "dependencies": {
+    "UiPath": "[9.0.6813.19232]",
+    "UiPath.Excel.Activities": "[2.3.6682.26635]",
+    "UiPath.Mail.Activities": "[1.1.6562.21018]",
+    "UiPath.System.Activities": "[18.3.6813.32001]",
+    "UiPath.UIAutomation.Activities": "[18.3.6813.32019]"
+  },
+  "schemaVersion": "3.2",
+  "studioVersion": "0.0.0.0",
+  "projectVersion": "1.0.6813.24620",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ]
+  },
+  "projectType": "Workflow",
+  "libraryOptions": {
+    "includeOriginalXaml": false,
+    "privateWorkflows": []
+  }
+}
