@@ -203,18 +203,22 @@
                     <ui:ShouldStop DisplayName="Check Stop Signal" sap2010:WorkflowViewState.IdRef="ShouldStop_1" Result="[ShouldStop]" />
                     <TryCatch DisplayName="Try GetTransactionData" sap2010:WorkflowViewState.IdRef="TryCatch_5">
                       <TryCatch.Try>
-                        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetTransactionData workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_13" UnSafe="False" WorkflowFileName="Framework\GetTransactionData.xaml">
-                          <ui:InvokeWorkflowFile.Arguments>
-                            <InArgument x:TypeArguments="x:Int32" x:Key="in_TransactionNumber">[TransactionNumber]</InArgument>
-                            <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
-                            <OutArgument x:TypeArguments="sd:DataRow" x:Key="out_TransactionItem">[TransactionItem]</OutArgument>
-                            <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField1">[TransactionField1]</OutArgument>
-                            <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField2">[TransactionField2]</OutArgument>
-                            <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionID">[TransactionID]</OutArgument>
-                            <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_TransactionData">[TransactionData]</InOutArgument>
-                            <InArgument x:TypeArguments="sd:DataRow[]" x:Key="in_WIList">[WIList]</InArgument>
-                          </ui:InvokeWorkflowFile.Arguments>
-                        </ui:InvokeWorkflowFile>
+                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_23">
+                          <WriteLine DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[WIList.Length.ToString+&quot;Length&quot;]" />
+                          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetTransactionData workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_13" UnSafe="False" WorkflowFileName="Framework\GetTransactionData.xaml">
+                            <ui:InvokeWorkflowFile.Arguments>
+                              <InArgument x:TypeArguments="x:Int32" x:Key="in_TransactionNumber">[TransactionNumber]</InArgument>
+                              <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
+                              <OutArgument x:TypeArguments="sd:DataRow" x:Key="out_TransactionItem">[TransactionItem]</OutArgument>
+                              <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField1">[TransactionField1]</OutArgument>
+                              <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField2">[TransactionField2]</OutArgument>
+                              <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionID">[TransactionID]</OutArgument>
+                              <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_TransactionData">[TransactionData]</InOutArgument>
+                              <InArgument x:TypeArguments="sd:DataRow[]" x:Key="in_WIList">[WIList]</InArgument>
+                              <InArgument x:TypeArguments="x:Int32" x:Key="in_WIListCount">[WIList.Length]</InArgument>
+                            </ui:InvokeWorkflowFile.Arguments>
+                          </ui:InvokeWorkflowFile>
+                        </Sequence>
                       </TryCatch.Try>
                       <TryCatch.Catches>
                         <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_6">
@@ -253,14 +257,6 @@
                                     <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
                                   </ui:InvokeWorkflowFile.Arguments>
                                 </ui:InvokeWorkflowFile>
-                                <Assign sap2010:WorkflowViewState.IdRef="Assign_21">
-                                  <Assign.To>
-                                    <OutArgument x:TypeArguments="x:Int32">[TransactionNumber]</OutArgument>
-                                  </Assign.To>
-                                  <Assign.Value>
-                                    <InArgument x:TypeArguments="x:Int32">[TransactionNumber+1]</InArgument>
-                                  </Assign.Value>
-                                </Assign>
                               </Sequence>
                             </TryCatch.Try>
                             <TryCatch.Catches>
@@ -412,7 +408,7 @@
       <Variable x:TypeArguments="sd:DataTable" Name="TransactionData" />
       <Variable x:TypeArguments="sd:DataRow[]" Name="WIList" />
     </StateMachine.Variables>
-    <sads:DebugSymbol.Symbol>d2FcXGpqY3VzbmJmcHMwNi5uYS5qbmouY29tXGhvbWVpJFx2c2FkaHVcVWlQYXRoXFVpUGF0aF9SRUZyYW1ld29ya19DYWxDbGllbnRTZWN1cml0eUhhc2hcTWFpbi54YW1se1EDoAMSAgEBlgMzlgM2AwG6AZgDM5gDNgMBuQHFAQ/+AhcDAZAB7QEXzgIfAgFV1wIX9gIfAgFIUweMAw8CAQLHARPoAR4DAZsB0wIr0wJKAwGZAdECF9EC4QEDAZUB+wIr+wJHAwGUAfkCF/kCugEDAZIB7wEbxwImAgFcygKWAcoCswECAVnLAp8BywLGAQIBWMwCigLMAskCAgFX2QIb9AImAgFKVQvAARYCAQ6DAyODAzsCAQuBAw+BA50BAgEKiQMjiQM+AgEIhwMPhwP2AQIBBMsBFcsBiwEDAbYBzAEV5wEgAwGcAdEChQHRAt4BAwGWAfkChQH5ArcBAwGTAfEBH4gCKgMBgAGrAh/FAioCAWeQAiOXAiwCAWKfAiOmAiwCAV3bAh/hAioCAVLpAiPwAi4CAUtXD60BGgIBFLUBE7wBHAIBD4cDfYcD8wECAQXLAXrLAYgBAwG3Ac4BGdkBMQMBpAHhAR3jASgDAZ0B8gEh+QEqAwGMAfoBIf8BOQMBhgGAAiGHAioDAYEBrQIjuQI7AgFswQInwQKHAgIBaJUCXpUCaQIBZZICX5ICdgIBY6QCUaQCXAIBYKECUqECXwIBXtwCIeACOQIBU+oCJeoCiQICAU7rAiXvAj0CAUxYEV8aAgFEYBGnARYCARmoARGsASkCARW6AUG6AUwCARK3AUK3AU8CARDUAWPUAXYDAbQB0wFj0wF2AwGyAdUBX9UBbgMBsAHXAVrXAWIDAa4B0gFj0gF0AwGsAdABYNABcwMBqgHRAXDRAXgDAagB1gFm1gF3AwGmAc4B1AHOAfcBAwGlAeIBH+IBugIDAZ4B9wFc9wFlAwGPAfQBXfQBdAMBjQH9AXj9AYABAwGKAfwBafwBegMBiAH6AdsB+gHpAQMBhwGFAkuFAmADAYQBggJMggJfAwGCAbACaLACdQIBfrECf7EClgECAXy2Amu2An4CAXq1Amu1An4CAXizAmezAnQCAXavAnqvAoIBAgF0sgJrsgJ8AgFytAJttAKAAQIBcLcCZ7cCdgIBbq0C4AGtAoUCAgFtwQKWAcEChAICAWncAt0B3AKCAgIBVOoCkwHqAoYCAgFP6wLdAesC/gECAU1dP11IAgFHWkBaTQIBRWAfYDQCARpiFaUBIAIBHKoBaKoBcAIBF6gBzQGoAfEBAgEW4gGOAeIBtwIDAZ8BZhdsLwIBPm0XfSICATR+F4IBLwIBMoMBF4gBLwIBLIkBF40BLwIBKo4BF5IBLwIBJpMBF5cBLwIBJJgBF58BIAIBIKABF6QBKQIBHWpwangCAUJmzwFm7wECAUFpXGl3AgFAaFhoaAIBP24ZfB4CATV+0AF+8QECATOFAViFAXgCATCGAV+GAYYBAgEugwHNAYMB6QECAS2JAdABiQHyAQIBK44B0gGOAfYBAgEpkAFdkAFlAgEnkwHNAZMB6QECASWdAUadAXUCASOaAUeaAU8CASGiAWOiAZABAgEebiduWgIBNnAddyYCATl6HXqFAgIBOHVIdV8CATxySXJqAgE6</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2FcXGpqY3VzbmJmcHMwNi5uYS5qbmouY29tXGhvbWVpJFx2c2FkaHVcVWlQYXRoXFVpUGF0aF9SRUZyYW1ld29ya19DYWxDbGllbnRTZWN1cml0eUhhc2hcTWFpbi54YW1sfFEDnAMSAgEBkgMzkgM2AwG5AZQDM5QDNgMBuAHFAQ/6AhcDAYsB8QEXygIfAgFV0wIX8gIfAgFIUweIAw8CAQLHARPsAR4DAZYBzwIrzwJKAwGUAc0CF80C4QEDAZAB9wIr9wJHAwGPAfUCF/UCugEDAY0B8wEbwwImAgFcxgKWAcYCswECAVnHAp8BxwLGAQIBWMgCigLIAskCAgFX1QIb8AImAgFKVQvAARYCAQ7/AiP/AjsCAQv9Ag/9Ap0BAgEKhQMjhQM+AgEIgwMPgwP2AQIBBMsBFcsBiwEDAbUBzAEV6wEgAwGXAc0ChQHNAt4BAwGRAfUChQH1ArcBAwGOAfUBH4QCKgMBgAGnAh/BAioCAWeMAiOTAiwCAWKbAiOiAiwCAV3XAh/dAioCAVLlAiPsAi4CAUtXD60BGgIBFLUBE7wBHAIBD4MDfYMD8wECAQXLAXrLAYgBAwG2Ac4BGd0BJAMBnwHlAR3nASgDAZgB9gEh/QEqAwGHAf4BIYMCOQMBgQGpAiO1AjsCAWy9Aie9AocCAgFokQJekQJpAgFljgJfjgJ2AgFjoAJRoAJcAgFgnQJSnQJfAgFe2AIh3AI5AgFT5gIl5gKJAgIBTucCJesCPQIBTFgRXxoCAURgEacBFgIBGagBEawBKQIBFboBQboBTAIBErcBQrcBTwIBEM8BG88BogEDAbMB0AEb3AEzAwGgAeYBH+YBugIDAZkB+wFc+wFlAwGKAfgBXfgBdAMBiAGBAniBAoABAwGFAYACaYACegMBgwH+AdsB/gHpAQMBggGsAmisAnUCAX6tAn+tApYBAgF8sgJrsgJ+AgF6sQJrsQJ+AgF4rwJnrwJ0AgF2qwJ6qwKCAQIBdK4Ca64CfAIBcrACbbACgAECAXCzAmezAnYCAW6pAuABqQKFAgIBbb0ClgG9AoQCAgFp2ALdAdgCggICAVTmApMB5gKGAgIBT+cC3QHnAv4BAgFNXT9dSAIBR1pAWk0CAUVgH2A0AgEaYhWlASACARyqAWiqAXACAReoAc0BqAHxAQIBFs8Bcs8BnwEDAbQB2gFc2gFrAwGyAdYBZdYBeAMBsAHVAWXVAXgDAa4B1wFh1wFwAwGsAdkBXNkBZAMBqgHUAWXUAXYDAagB0gFi0gF1AwGmAdMBctMBegMBpAHYAWjYAXkDAaIB0AHWAdAB+QEDAaEB5gGOAeYBtwIDAZoBZhdsLwIBPm0XfSICATR+F4IBLwIBMoMBF4gBLwIBLIkBF40BLwIBKo4BF5IBLwIBJpMBF5cBLwIBJJgBF58BIAIBIKABF6QBKQIBHWpwangCAUJmzwFm7wECAUFpXGl3AgFAaFhoaAIBP24ZfB4CATV+0AF+8QECATOFAViFAXgCATCGAV+GAYYBAgEugwHNAYMB6QECAS2JAdABiQHyAQIBK44B0gGOAfYBAgEpkAFdkAFlAgEnkwHNAZMB6QECASWdAUadAXUCASOaAUeaAU8CASGiAWOiAZABAgEebiduWgIBNnAddyYCATl6HXqFAgIBOHVIdV8CATxySXJqAgE6</sads:DebugSymbol.Symbol>
   </StateMachine>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -492,7 +488,15 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="ShouldStop_1" sap:VirtualizedContainerService.HintSize="418,22" />
+      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="314,61" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_13" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_23" sap:VirtualizedContainerService.HintSize="336,312">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="LogMessage_12" sap:VirtualizedContainerService.HintSize="314,91" />
       <sap2010:ViewStateData Id="Sequence_13" sap:VirtualizedContainerService.HintSize="336,51">
         <sap:WorkflowViewStateService.ViewState>
@@ -510,7 +514,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="TryCatch_5" sap:VirtualizedContainerService.HintSize="418,314">
+      <sap2010:ViewStateData Id="TryCatch_5" sap:VirtualizedContainerService.HintSize="418,539">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -518,7 +522,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="440,587">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="440,812">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -528,8 +532,7 @@
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="314,60" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_9" sap:VirtualizedContainerService.HintSize="314,87" />
-      <sap2010:ViewStateData Id="Assign_21" sap:VirtualizedContainerService.HintSize="314,60" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,411">
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,311">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -565,7 +568,7 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="TryCatch_6" sap:VirtualizedContainerService.HintSize="418,314" />
-      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="418,660">
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="418,560">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -604,7 +607,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="State_3" sap:VirtualizedContainerService.HintSize="444,1106">
+      <sap2010:ViewStateData Id="State_3" sap:VirtualizedContainerService.HintSize="444,1006">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">285,380</av:Point>

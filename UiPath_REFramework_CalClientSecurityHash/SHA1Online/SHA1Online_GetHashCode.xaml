@@ -70,7 +70,7 @@
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
           <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_2">
-            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  textToHashId'" EmptyField="True" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="True" Text="[in_HashFormula]">
+            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  textToHashId'" EmptyField="True" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="True" Text="[in_HashFormula.Trim]">
               <ui:TypeInto.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="25910c3719c0712bab722b64bdca9a0b" Selector="&lt;webctrl id='textToHashId' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
               </ui:TypeInto.Target>
@@ -103,7 +103,7 @@
         </ActivityAction>
       </ui:BrowserScope.Body>
     </ui:BrowserScope>
-    <sads:DebugSymbol.Symbol>d35cXGpqY3VzbmJmcHMwNi5uYS5qbmouY29tXGhvbWVpJFx2c2FkaHVcVWlQYXRoXFVpUGF0aF9SRUZyYW1ld29ya19DYWxDbGllbnRTZWN1cml0eUhhc2hcU0hBMU9ubGluZVxTSEExT25saW5lX0dldEhhc2hDb2RlLnhhbWwPQQNrDgIBAUIFaRcCAQJCnwJCwwICARJIC2YWAgEDSQ1NGwIBDk4NTnkCAQtPDV0YAgEJXg1lGwIBBEugAUvRAQIBEUmrAkm9AgIBD05kTnYCAQxboAFbzQECAQpjOWNJAgEFYIsBYLoBAgEIYMUBYMsBAgEH</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d35cXGpqY3VzbmJmcHMwNi5uYS5qbmouY29tXGhvbWVpJFx2c2FkaHVcVWlQYXRoXFVpUGF0aF9SRUZyYW1ld29ya19DYWxDbGllbnRTZWN1cml0eUhhc2hcU0hBMU9ubGluZVxTSEExT25saW5lX0dldEhhc2hDb2RlLnhhbWwPQQNrDgIBAUIFaRcCAQJCnwJCwwICARJIC2YWAgEDSQ1NGwIBDk4NTnkCAQtPDV0YAgEJXg1lGwIBBEugAUvRAQIBEUmrAknCAgIBD05kTnYCAQxboAFbzQECAQpjOWNJAgEFYIsBYLoBAgEIYMUBYMsBAgEH</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

@@ -18,6 +18,7 @@
     <x:Property Name="out_TransactionID" Type="OutArgument(x:String)" />
     <x:Property Name="io_TransactionData" Type="InOutArgument(sd:DataTable)" />
     <x:Property Name="in_WIList" Type="InArgument(sd:DataRow[])" />
+    <x:Property Name="in_WIListCount" Type="InArgument(x:Int32)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -79,44 +80,39 @@
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Description: Get data from spreadsheets, databases, email, web API or UiPath server queues. If no new data, set out_TransactionItem to Nothing. &#xA;&#xA;For a linear process (not repetitive), set out_TransactionItem only for in_TransactionNumber 1 - first and only transaction. &#xA;&#xA;If the process is repeatable, set io_TransactionData once for in_TransactionNumber 1, then assign a new out_TransactionItem by using the in_TransactionNumber to index io_TransactionData. Be aware that, at the end of the io_TransactionData collection, it is your responsibility to set out_TransactionItem to Nothing, thus ending the process." DisplayName="GetTransactionData" sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <If Condition="[in_TransactionNumber&lt;=in_WIList.Count]">
+    <If Condition="[in_TransactionNumber&lt;=in_WIListCount]" sap2010:WorkflowViewState.IdRef="If_3">
       <If.Then>
-        <Sequence>
-          <Assign DisplayName="Assign TransactionItem">
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Assign DisplayName="Assign TransactionItem" sap2010:WorkflowViewState.IdRef="Assign_7">
             <Assign.To>
               <OutArgument x:TypeArguments="sd:DataRow">[out_TransactionItem]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="sd:DataRow">[in_WIList(in_TransactionNumber)]</InArgument>
+              <InArgument x:TypeArguments="sd:DataRow">[in_WIList(in_TransactionNumber-1)]</InArgument>
             </Assign.Value>
-            <sap2010:WorkflowViewState.IdRef>Assign_7</sap2010:WorkflowViewState.IdRef>
           </Assign>
-          <Assign>
+          <Assign sap2010:WorkflowViewState.IdRef="Assign_8">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[out_TransactionID]</OutArgument>
             </Assign.To>
             <Assign.Value>
               <InArgument x:TypeArguments="x:String">[out_TransactionItem("WIID").ToString]</InArgument>
             </Assign.Value>
-            <sap2010:WorkflowViewState.IdRef>Assign_8</sap2010:WorkflowViewState.IdRef>
           </Assign>
-          <sap2010:WorkflowViewState.IdRef>Sequence_4</sap2010:WorkflowViewState.IdRef>
         </Sequence>
       </If.Then>
       <If.Else>
-        <Assign DisplayName="Assign TransactionItem">
+        <Assign DisplayName="Assign TransactionItem" sap2010:WorkflowViewState.IdRef="Assign_9">
           <Assign.To>
             <OutArgument x:TypeArguments="sd:DataRow">[out_TransactionItem]</OutArgument>
           </Assign.To>
           <Assign.Value>
             <InArgument x:TypeArguments="sd:DataRow">[Nothing]</InArgument>
           </Assign.Value>
-          <sap2010:WorkflowViewState.IdRef>Assign_9</sap2010:WorkflowViewState.IdRef>
         </Assign>
       </If.Else>
-      <sap2010:WorkflowViewState.IdRef>If_3</sap2010:WorkflowViewState.IdRef>
     </If>
-    <sads:DebugSymbol.Symbol>d3lcXGpqY3VzbmJmcHMwNi5uYS5qbmouY29tXGhvbWVpJFx2c2FkaHVcVWlQYXRoXFVpUGF0aF9SRUZyYW1ld29ya19DYWxDbGllbnRTZWN1cml0eUhhc2hcRnJhbWV3b3JrXEdldFRyYW5zYWN0aW9uRGF0YS54YW1sDVEDeA4CAQFSBXYKAgECUhNSPwIBA1QJaBQCAQhrCXMSAgEEVQtdFAIBDV4LZhQCAQlwNnA/AgEHbTdtTAIBBVo4WlkCARBXOVdOAgEOYzZjXAIBDGA3YEoCAQo=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d3lcXGpqY3VzbmJmcHMwNi5uYS5qbmouY29tXGhvbWVpJFx2c2FkaHVcVWlQYXRoXFVpUGF0aF9SRUZyYW1ld29ya19DYWxDbGllbnRTZWN1cml0eUhhc2hcRnJhbWV3b3JrXEdldFRyYW5zYWN0aW9uRGF0YS54YW1sDVIDdA4CAQFTBXIKAgECUxNTPgIBA1UJZhQCAQppCXASAgEGVgtdFAIBD14LZRQCAQtuNm4/AgEJazdrTAIBB1s4W1sCARJYOVhOAgEQYzZjXAIBDmA3YEoCAQw=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
